@@ -400,7 +400,7 @@ titlebar_padding 10 6
 
 # Glass title bars – RGBA backgrounds let compositor blur show through
 # state                 border    background  text      indicator  child_border
-client.focused          #4a72c0   #15161ef2   #c0caf5   #4a72c0    #4a72c0
+client.focused          #4a72c0   #1e2040f2   #ffffff   #4a72c0    #4a72c0
 client.focused_inactive #414868   #15161ecc   #9aa5ce   #414868    #414868
 client.unfocused        #24283b   #15161ecc   #9aa5ce   #24283b    #24283b
 client.urgent           #f7768e   #15161ef2   #f7768e   #f7768e    #f7768e
