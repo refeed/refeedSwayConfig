@@ -1,0 +1,42 @@
+# Tinted-accent frosted glass notifications (mako)
+# Pairs with SwayFX `layer_effects "notifications"` (blur + 12px corner_radius + shadow).
+# Background is semi-transparent so the compositor blur shows through.
+
+# Layout / behavior
+sort=-time
+layer=overlay
+anchor=top-right
+max-visible=5
+default-timeout=6000
+ignore-timeout=0
+font=JetBrainsMono Nerd Font 11
+width=380
+height=160
+margin=12
+outer-margin=12,12,0,0
+padding=14
+border-size=2
+border-radius=12
+icons=1
+max-icon-size=48
+icon-border-radius=8
+
+# Solid dark card (no blur on this layer, so keep it opaque)
+background-color=#1a1b26
+text-color=#c0caf5
+border-color=#7aa2f7
+progress-color=over #7aa2f733
+
+[urgency=low]
+border-color=#414868
+default-timeout=4000
+
+[urgency=normal]
+border-color=#7aa2f7
+
+[urgency=high]
+border-color=#f7768e
+default-timeout=0
+
+[mode=dnd]
+invisible=1

@@ -1,0 +1,424 @@
+#font pango:Noto Sans 11
+font pango:Cantarell 14px
+#font pango:KanitMedium 9
+
+
+# workspaces
+set $ws1   1:🌐
+set $ws2   2:
+set $ws3   3:
+set $ws4   4:
+set $ws5   5:5
+set $ws6   6:6
+set $ws7   7:7
+set $ws8   8:8
+set $ws9   9:9
+set $ws0   10:10
+set $wsF1  11:📝
+set $wsF2  12:AI
+set $wsF3  13:13
+set $wsF4  14:14
+set $wsF5  15:15
+set $wsF6  16:16
+set $wsF7  17:17
+set $wsF8  18:18
+set $wsF9  19:19
+set $wsF10 20:20
+set $wsF11 21:21
+set $wsF12 22:22
+
+# INPUTS
+input "type:touchpad" {
+    tap enabled
+    natural_scroll enabled
+    dwt enabled              # Disable touchpad while typing
+    middle_emulation enabled # Tap with two fingers for right-click
+}
+
+
+# OFFICE OUTPUTS
+output HDMI-A-1 {
+    pos 0 0
+    res 1920x1080@100Hz
+}
+output eDP-1 {
+    # scale 2
+    scale 1.25
+    pos 1920 0
+    res 1920x1200
+}
+workspace $ws1 output HDMI-A-1
+workspace $ws0 output eDP-1
+## END OUTPUTS
+
+# Default config for sway
+#
+# Copy this to ~/.config/sway/config and edit it to your liking.
+#
+# Read `man 5 sway` for a complete reference.
+
+### Variables
+#
+# Logo key. Use Mod1 for Alt.
+set $mod Mod4
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+# Your preferred terminal emulator
+set $term kitty
+# Your preferred application launcher
+set $menu rofi -show drun -run-command 'swaymsg exec -- {cmd}'
+set $screenshot grim ~/Images/screenshots/scrn-$(date +"%Y-%m-%d-%H-%M-%S").png
+set $screenclip slurp | grim -g - ~/Images/screenshots/scrn-$(date +"%Y-%m-%d-%H-%M-%S").png
+set $lock swaylock
+set $power ~/.config/rofi/modi/power
+# Define screenshot save path
+set $screenshot_path ~/Pictures/Screenshots
+
+# Ensure directory exists
+exec mkdir -p $screenshot_path
+
+# Autostart
+exec --no-startup-id mako -c ~/.config/mako/config
+exec --no-startup-id gnome-keyring-daemon --start --components=pkcs11,secrets,ssh
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XAUTHORITY
+exec hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XAUTHORITY XDG_CURRENT_DESKTOP=sway
+exec slack
+exec swayidle -w \
+  timeout 300 'swaylock -f -c 000000' \
+  timeout 400 'swaymsg "output * dpms off"' \
+  resume 'swaymsg "output * dpms on"' \
+  before-sleep 'swaylock -f -c 000000'
+
+
+
+# Default workspaces for common programs
+assign [app_id="^org.mozilla.firefox$"] $ws1
+assign [app_id="^code$"] $ws2
+assign [app_id="^dev.zed.Zed$"] $ws2
+assign [app_id="^kitty$"] $ws3
+assign [app_id="^Slack$"] $ws4
+assign [class="^Google-chrome$"] $ws4
+assign [class="^Spotify$"] $wsF1
+
+for_window [title=".*"] urgent enable
+
+
+
+
+### Output configuration
+#
+# Default wallpaper (more resolutions are available in @datadir@/backgrounds/sway/)
+output * bg ~/wallpaper2.jpg fill
+#
+# Example configuration:
+#
+#   output HDMI-A-1 resolution 1920x1080 position 1920,0
+#
+# You can get the names of your outputs by running: swaymsg -t get_outputs
+
+### Idle configuration
+#
+# Example configuration:
+#
+# exec swayidle -w \
+#          timeout 300 'swaylock -f -c 000000' \
+#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+#          before-sleep 'swaylock -f -c 000000'
+#
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays after another 300 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.
+
+### Input configuration
+#
+# Example configuration:
+#
+#   input "2:14:SynPS/2_Synaptics_TouchPad" {
+#       dwt enabled
+#       tap enabled
+#       natural_scroll enabled
+#       middle_emulation enabled
+#   }
+#
+# You can get the names of your inputs by running: swaymsg -t get_inputs
+# Read `man 5 sway-input` for more information about this section.
+
+### Key bindings
+
+bindsym $mod+Escape exec $power
+
+# Screenshot entire screen (save + copy + notify with image preview)
+bindsym Print exec sh -c 'file=$screenshot_path/$(date +'%Y-%m-%d_%H-%M-%S').png && grimshot save screen $file && wl-copy < $file && notify-send -i $file "Screenshot Taken" "Saved and copied: $file"'
+
+# Screenshot focused window (save + copy + notify with image preview)
+bindsym $mod+Print exec sh -c 'file=$screenshot_path/$(date +'%Y-%m-%d_%H-%M-%S').png && grimshot save active $file && wl-copy < $file && notify-send -i $file "Screenshot Taken" "Saved and copied: $file"'
+
+# Screenshot selected area (save + copy + notify with image preview)
+bindsym Shift+Print exec sh -c 'file=$screenshot_path/$(date +'%Y-%m-%d_%H-%M-%S').png && grimshot save area $file && wl-copy < $file && notify-send -i $file "Screenshot Taken" "Saved and copied: $file"'
+
+# Screenshot focused output/monitor (save + copy + notify with image preview)
+bindsym Ctrl+Print exec sh -c 'file=$screenshot_path/$(date +'%Y-%m-%d_%H-%M-%S').png && grimshot save output $file && wl-copy < $file && notify-send -i $file "Screenshot Taken" "Saved and copied: $file"'
+
+bindsym Control+Space exec makoctl dismiss 
+bindsym Control+Shift+Space exec makoctl dismiss --all
+#
+# Basics:
+#
+# Start a terminal
+bindsym $mod+Return exec $term
+
+# Kill focused window
+bindsym $mod+Shift+q kill
+
+# Start your launcher
+bindsym $mod+d exec $menu
+
+# Drag floating windows by holding down $mod and left mouse button.
+# Resize them with right mouse button + $mod.
+# Despite the name, also works for non-floating windows.
+# Change normal to inverse to use left mouse button for resizing and right
+# mouse button for dragging.
+floating_modifier $mod normal
+
+# Reload the configuration file
+bindsym $mod+Shift+c reload
+
+# Exit sway (logs you out of your Wayland session)
+bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+#
+# Moving around:
+#
+# Move your focus around
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+# Or use $mod+[up|down|left|right]
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move the focused window with the same, but add Shift
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+# Ditto, with arrow keys
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+#
+# Workspaces:
+#
+# Switch to workspace
+bindsym $mod+1   workspace $ws1
+bindsym $mod+2   workspace $ws2
+bindsym $mod+3   workspace $ws3
+bindsym $mod+4   workspace $ws4
+bindsym $mod+5   workspace $ws5
+bindsym $mod+6   workspace $ws6
+bindsym $mod+7   workspace $ws7
+bindsym $mod+8   workspace $ws8
+bindsym $mod+9   workspace $ws9
+bindsym $mod+0   workspace $ws0
+bindsym $mod+F1  workspace $wsF1
+bindsym $mod+F2  workspace $wsF2
+bindsym $mod+F3  workspace $wsF3
+bindsym $mod+F4  workspace $wsF4
+bindsym $mod+F5  workspace $wsF5
+bindsym $mod+F6  workspace $wsF6
+bindsym $mod+F7  workspace $wsF7
+bindsym $mod+F8  workspace $wsF8
+bindsym $mod+F9  workspace $wsF9
+bindsym $mod+F10 workspace $wsF10
+bindsym $mod+F11 workspace $wsF11
+bindsym $mod+F12 workspace $wsF12
+
+# Move focused container to workspace
+bindsym $mod+Shift+1    move container to workspace $ws1
+bindsym $mod+Shift+2    move container to workspace $ws2
+bindsym $mod+Shift+3    move container to workspace $ws3
+bindsym $mod+Shift+4    move container to workspace $ws4
+bindsym $mod+Shift+5    move container to workspace $ws5
+bindsym $mod+Shift+6    move container to workspace $ws6
+bindsym $mod+Shift+7    move container to workspace $ws7
+bindsym $mod+Shift+8    move container to workspace $ws8
+bindsym $mod+Shift+9    move container to workspace $ws9
+bindsym $mod+Shift+0    move container to workspace $ws0
+bindsym $mod+Shift+F1   move container to workspace $wsF1
+bindsym $mod+Shift+F2   move container to workspace $wsF2
+bindsym $mod+Shift+F3   move container to workspace $wsF3
+bindsym $mod+Shift+F4   move container to workspace $wsF4
+bindsym $mod+Shift+F5   move container to workspace $wsF5
+bindsym $mod+Shift+F6   move container to workspace $wsF6
+bindsym $mod+Shift+F7   move container to workspace $wsF7
+bindsym $mod+Shift+F8   move container to workspace $wsF8
+bindsym $mod+Shift+F9   move container to workspace $wsF9
+bindsym $mod+Shift+F10  move container to workspace $wsF10
+bindsym $mod+Shift+F11  move container to workspace $wsF11
+bindsym $mod+Shift+F12  move container to workspace $wsF12
+
+# Move workspace to another screen
+bindsym $mod+Shift+o move workspace to output left
+bindsym $mod+Shift+p move workspace to output right
+# Note: workspaces can have any name you want, not just numbers.
+# We just use 1-10 as the default.
+#
+# Layout stuff:
+#
+# You can "split" the current object of your focus with
+# $mod+b or $mod+v, for horizontal and vertical splits
+# respectively.
+bindsym $mod+b splith
+bindsym $mod+v splitv
+
+# Switch the current container between different layout styles
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Make the current focus fullscreen
+bindsym $mod+f fullscreen
+
+# Toggle the current focus between tiling and floating mode
+bindsym $mod+Shift+space floating toggle
+
+# Swap focus between the tiling area and the floating area
+bindsym $mod+space focus mode_toggle
+
+# Move focus to the parent container
+bindsym $mod+a focus parent
+#
+# Scratchpad:
+#
+# Sway has a "scratchpad", which is a bag of holding for windows.
+# You can send windows there and get them back later.
+
+# Move the currently focused window to the scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+bindsym $mod+minus scratchpad show
+#
+# Resizing containers:
+#
+mode "resize" {
+	# left will shrink the containers width
+	# right will grow the containers width
+	# up will shrink the containers height
+	# down will grow the containers height
+	bindsym $left resize shrink width 10px
+	bindsym $down resize grow height 10px
+	bindsym $up resize shrink height 10px
+	bindsym $right resize grow width 10px
+
+	# Ditto, with arrow keys
+	bindsym Left resize shrink width 10px
+	bindsym Down resize grow height 10px
+	bindsym Up resize shrink height 10px
+	bindsym Right resize grow width 10px
+
+	# Return to default mode
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+#
+# Utilities:
+#
+# Special keys to adjust volume via PulseAudio
+bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
+bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
+bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
+bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
+# Special keys to adjust brightness via brightnessctl
+bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
+
+#
+# Status Bar:
+#
+# Read `man 5 sway-bar` for more information about this section.
+#bar {
+#    position top
+#
+#    # When the status_command prints a new line to stdout, swaybar updates.
+#    # The default just shows the current date and time.
+#    status_command while date +'%Y-%m-%d %X'; do sleep 1; done
+#
+#    colors {
+#        statusline #ffffff
+#        background #323232
+#        inactive_workspace #32323200 #32323200 #5c5c5c
+#    }
+#}
+exec_always ~/.config/waybar/waybar.sh
+
+include @sysconfdir@/sway/config.d/*
+
+### SwayFX eye candy ###############################################
+# Window open/close animation (SwayFX 0.5.3+ / the "SwayFX (git)" session only;
+# ignored with a harmless log warning on the packaged 0.5.2 fallback session).
+animation_duration_ms 250
+
+# Gaps between windows (needed for smart_corner_radius to round corners)
+gaps inner 10
+gaps outer 4
+
+# Rounded corners (only when the window has gaps around it)
+corner_radius 8
+smart_corner_radius enable
+
+# Drop shadows
+shadows enable
+shadows_on_csd enable
+shadow_blur_radius 20
+shadow_color #00000099
+
+# Subtly dim inactive windows
+default_dim_inactive 0.1
+
+# Background blur (visible behind transparent surfaces / the bar)
+blur enable
+blur_passes 5
+blur_radius 10
+blur_xray disable
+
+# Glass title bars – RGBA backgrounds let compositor blur show through
+# border            background   text      indicator  child_border
+client.focused          #7aa2f7   #15161ecc  #c0caf5   #7aa2f7    #7aa2f7
+client.focused_inactive #414868   #15161e88  #9aa5ce   #414868    #414868
+client.unfocused        #24283b   #15161e66  #9aa5ce   #24283b    #24283b
+client.urgent           #f7768e   #15161ecc  #f7768e   #f7768e    #f7768e
+titlebar_padding 10 6
+
+# Glass title bars – RGBA backgrounds let compositor blur show through
+# state                 border    background  text      indicator  child_border
+client.focused          #4a72c0   #15161ef2   #c0caf5   #4a72c0    #4a72c0
+client.focused_inactive #414868   #15161ecc   #9aa5ce   #414868    #414868
+client.unfocused        #24283b   #15161ecc   #9aa5ce   #24283b    #24283b
+client.urgent           #f7768e   #15161ef2   #f7768e   #f7768e    #f7768e
+titlebar_padding 10 6
+
+# Blur + shadow on the Waybar layer
+layer_effects "waybar" blur enable; shadows enable
+
+# Frosted glass behind the rofi launcher
+layer_effects "rofi" {
+    blur enable;
+    blur_ignore_transparent enable;
+    corner_radius 14;
+    shadows enable;
+}
+
+# Notifications (mako): no compositor layer effects.
+# mako's layer surface is larger than the visible card, so blur/shadow/corner
+# effects produce an oversized "glass" halo. mako draws its own rounded corners
+# and border (see ~/.config/mako/config), so no layer_effects are needed here.
+####################################################################

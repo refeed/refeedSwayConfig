@@ -1,0 +1,109 @@
+/*
+ * Tinted-accent frosted glass theme for rofi-wayland
+ * Pairs with SwayFX `layer_effects "rofi"` (blur + 14px corner_radius + shadow).
+ * The window background is semi-transparent so the compositor blur shows through.
+ */
+
+* {
+    accent:        #7aa2f7;     /* indigo-blue glow                */
+    accent-text:   #ffffff;
+    glass:         #15161eAA;    /* dark charcoal, ~67% alpha       */
+    glass-soft:    #1a1b2655;    /* inputbar / subtle panels        */
+    fg:            #c0caf5;
+    fg-dim:        #9aa5ce;
+    sel:           #7aa2f733;    /* translucent accent selection    */
+    urgent:        #f7768e;
+    transparent:   #00000000;
+
+    font:               "JetBrainsMono Nerd Font 12";
+    background-color:   transparent;
+    text-color:         @fg;
+}
+
+window {
+    transparency:       "real";
+    background-color:    @glass;
+    border:              2px;
+    border-color:        @accent;
+    border-radius:       14px;
+    width:               640px;
+    padding:             18px;
+    location:            center;
+    anchor:              center;
+}
+
+mainbox {
+    background-color:    transparent;
+    spacing:             14px;
+    children:           [ "inputbar", "listview" ];
+}
+
+inputbar {
+    background-color:    @glass-soft;
+    border:              1px;
+    border-color:        #ffffff14;
+    border-radius:       10px;
+    padding:             11px 14px;
+    spacing:             10px;
+    children:           [ "prompt", "entry" ];
+}
+
+prompt {
+    background-color:    transparent;
+    text-color:          @accent;
+    vertical-align:      0.5;
+}
+
+entry {
+    background-color:    transparent;
+    text-color:          @fg;
+    placeholder:         "Search…";
+    placeholder-color:   @fg-dim;
+    vertical-align:      0.5;
+    cursor:              text;
+}
+
+listview {
+    background-color:    transparent;
+    lines:               8;
+    columns:             1;
+    spacing:             4px;
+    padding:             4px 0px 0px 0px;
+    scrollbar:           false;
+    dynamic:             true;
+    fixed-height:        false;
+}
+
+element {
+    background-color:    transparent;
+    text-color:          @fg;
+    padding:             9px 12px;
+    spacing:             12px;
+    border-radius:       10px;
+}
+
+element normal active   { text-color: @accent; }
+element normal urgent   { text-color: @urgent; }
+
+element selected {
+    background-color:    @sel;
+    text-color:          @accent-text;
+    border:              1px;
+    border-color:        @accent;
+}
+element selected active { text-color: @accent-text; }
+
+element-icon {
+    background-color:    transparent;
+    size:                22px;
+    vertical-align:      0.5;
+}
+
+element-text {
+    background-color:    transparent;
+    text-color:          inherit;
+    vertical-align:      0.5;
+}
+
+message { background-color: @glass-soft; border-radius: 10px; padding: 8px 12px; }
+textbox { background-color: transparent; text-color: @fg-dim; }

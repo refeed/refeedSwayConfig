@@ -1,0 +1,13 @@
+configuration {
+    modi:                "drun,run,window";
+    show-icons:          true;
+    icon-theme:          "Adwaita";
+    drun-display-format: "{name}";
+    display-drun:        "  Apps";
+    display-run:         "  Run";
+    display-window:      "  Windows";
+    drun-match-fields:   "name,generic,exec,categories,keywords";
+    sorting-method:      "fzf";
+}
+
+@theme "~/.config/rofi/glass.rasi"
