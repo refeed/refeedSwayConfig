@@ -46,13 +46,13 @@
     padding: 0;
 }
 
-/* The whole bar — transparent so SwayFX compositor blur shows through */
+/* The whole bar */
 #waybar {
-    background: rgba(10, 12, 22, 0.22);
-    color: rgba(210, 218, 240, 0.95);
+    background: #363636;
+    color: #f0f0f0;
     font-family: Cantarell, Noto Sans, sans-serif;
     font-size: 13px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+    border-bottom: 1px solid #4a4a4a;
 }
 
 /* Module pill base */
@@ -71,7 +71,7 @@
     padding-right: 12px;
     margin: 4px 2px;
     border-radius: 8px;
-    background: rgba(255, 255, 255, 0.055);
+    background: #424242;
 }
 
 
@@ -105,7 +105,7 @@
 
 #clock {
     font-weight: bold;
-    color: rgba(230, 235, 255, 0.95);
+    color: #f0f0f0;
 }
 
 #cpu.warning {
@@ -133,8 +133,8 @@
 }
 
 #mode {
-    background: rgba(74, 114, 192, 0.30);
-    border-top: 1px solid rgba(74, 114, 192, 0.55);
+    background: #4a4a4a;
+    border-top: 1px solid #686868;
     padding-bottom: 2px;
 }
 
@@ -152,7 +152,7 @@
 
 #window {
     font-weight: bold;
-    color: rgba(240, 243, 255, 0.90);
+    color: #f0f0f0;
 }
 
 #workspaces button {
@@ -160,22 +160,22 @@
     padding: 2px 12px;
     margin: 4px 2px;
     border-radius: 7px;
-    color: rgba(155, 165, 200, 0.80);
+    color: #aaaaaa;
     background: transparent;
     transition: all 150ms ease;
 }
 
 #workspaces button.focused {
-    background: rgba(255, 255, 255, 0.14);
-    color: rgba(240, 243, 255, 0.98);
+    background: #585858;
+    color: #ffffff;
 }
 
 #workspaces button:hover {
-    background: rgba(255, 255, 255, 0.09);
-    color: rgba(220, 228, 255, 0.95);
+    background: #4e4e4e;
+    color: #e8e8e8;
 }
 
 #workspaces button.urgent {
-    background: rgba(247, 118, 142, 0.20);
-    color: #f7768e;
+    background: #5a2a2a;
+    color: #ff6b6b;
 }

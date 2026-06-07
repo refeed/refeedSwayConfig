@@ -1,18 +1,17 @@
 /*
- * Tinted-accent frosted glass theme for rofi-wayland
+ * macOS-style dark gray frosted glass theme for rofi-wayland
  * Pairs with SwayFX `layer_effects "rofi"` (blur + 14px corner_radius + shadow).
- * The window background is semi-transparent so the compositor blur shows through.
  */
 
 * {
-    accent:        #7aa2f7;     /* indigo-blue glow                */
+    accent:        #909090;     /* neutral gray — no blue                   */
     accent-text:   #ffffff;
-    glass:         #15161eAA;    /* dark charcoal, ~67% alpha       */
-    glass-soft:    #1a1b2655;    /* inputbar / subtle panels        */
-    fg:            #c0caf5;
-    fg-dim:        #9aa5ce;
-    sel:           #7aa2f733;    /* translucent accent selection    */
-    urgent:        #f7768e;
+    glass:         #363636ee;   /* medium gray base                         */
+    glass-soft:    #42424266;   /* inputbar tint                            */
+    fg:            #f0f0f0;     /* main text                                */
+    fg-dim:        #888888;
+    sel:           #505050bb;   /* selection bg                             */
+    urgent:        #cc4444;
     transparent:   #00000000;
 
     font:               "JetBrainsMono Nerd Font 12";
@@ -23,8 +22,8 @@
 window {
     transparency:       "real";
     background-color:    @glass;
-    border:              2px;
-    border-color:        @accent;
+    border:              1px;
+    border-color:        #909090bb;
     border-radius:       14px;
     width:               640px;
     padding:             18px;
@@ -50,7 +49,7 @@ inputbar {
 
 prompt {
     background-color:    transparent;
-    text-color:          @accent;
+    text-color:          #aaaaaa;
     vertical-align:      0.5;
 }
 
@@ -82,14 +81,14 @@ element {
     border-radius:       10px;
 }
 
-element normal active   { text-color: @accent; }
+element normal active   { text-color: #aaaaaa; }
 element normal urgent   { text-color: @urgent; }
 
 element selected {
     background-color:    @sel;
     text-color:          @accent-text;
     border:              1px;
-    border-color:        @accent;
+    border-color:        #909090bb;
 }
 element selected active { text-color: @accent-text; }
 

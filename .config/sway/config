@@ -390,24 +390,16 @@ default_dim_inactive 0.1
 
 # Background blur (visible behind transparent surfaces / the bar)
 blur enable
-blur_passes 5
+blur_passes 8
 blur_radius 10
 blur_xray disable
 
-# Glass title bars – RGBA backgrounds let compositor blur show through
-# border            background   text      indicator  child_border
-client.focused          #7aa2f7   #15161ecc  #c0caf5   #7aa2f7    #7aa2f7
-client.focused_inactive #414868   #15161e88  #9aa5ce   #414868    #414868
-client.unfocused        #24283b   #15161e66  #9aa5ce   #24283b    #24283b
-client.urgent           #f7768e   #15161ecc  #f7768e   #f7768e    #f7768e
-titlebar_padding 10 6
-
-# Glass title bars – RGBA backgrounds let compositor blur show through
-# state                 border    background  text      indicator  child_border
-client.focused          #4a72c0   #2a3060f2   #ffffff   #4a72c0    #00000000
-client.focused_inactive #414868   #15161ecc   #9aa5ce   #414868    #00000000
-client.unfocused        #24283b   #15161ecc   #9aa5ce   #24283b    #00000000
-client.urgent           #f7768e   #15161ef2   #f7768e   #f7768e    #00000000
+# Frosted glass title bars — RGBA so compositor blur shows through
+# state                 border      background  text      indicator   child_border
+client.focused          #909090dd   #3f3f3fee   #ffffff   #909090dd   #909090bb
+client.focused_inactive #5a5a5a88   #323232c0   #c0c0c0   #5a5a5a88   #00000000
+client.unfocused        #3e3e3e55   #2a2a2ab0   #909090   #3e3e3e55   #00000000
+client.urgent           #cc4444cc   #3a2a2aee   #ff6b6b   #cc4444cc   #00000000
 titlebar_padding 10 6
 
 # Blur on the Waybar layer
