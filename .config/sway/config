@@ -380,8 +380,10 @@ corner_radius 8
 smart_corner_radius enable
 
 # Drop shadows
-shadows disable
-shadows_on_csd disable
+shadows enable
+shadows_on_csd enable
+shadow_blur_radius 20
+shadow_color #00000099
 
 # Subtly dim inactive windows
 default_dim_inactive 0.1
