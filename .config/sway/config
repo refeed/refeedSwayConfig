@@ -41,6 +41,10 @@ output HDMI-A-1 {
     pos 0 0
     res 1920x1080@100Hz
 }
+output DP-2 {
+    pos 0 0
+    res 1920x1080@99.930Hz
+}
 output eDP-1 {
     # scale 2
     scale 1.25
@@ -376,10 +380,8 @@ corner_radius 8
 smart_corner_radius enable
 
 # Drop shadows
-shadows enable
-shadows_on_csd enable
-shadow_blur_radius 20
-shadow_color #00000099
+shadows disable
+shadows_on_csd disable
 
 # Subtly dim inactive windows
 default_dim_inactive 0.1
@@ -400,14 +402,14 @@ titlebar_padding 10 6
 
 # Glass title bars – RGBA backgrounds let compositor blur show through
 # state                 border    background  text      indicator  child_border
-client.focused          #4a72c0   #1e2040f2   #ffffff   #4a72c0    #4a72c0
-client.focused_inactive #414868   #15161ecc   #9aa5ce   #414868    #414868
-client.unfocused        #24283b   #15161ecc   #9aa5ce   #24283b    #24283b
-client.urgent           #f7768e   #15161ef2   #f7768e   #f7768e    #f7768e
+client.focused          #4a72c0   #2a3060f2   #ffffff   #4a72c0    #00000000
+client.focused_inactive #414868   #15161ecc   #9aa5ce   #414868    #00000000
+client.unfocused        #24283b   #15161ecc   #9aa5ce   #24283b    #00000000
+client.urgent           #f7768e   #15161ef2   #f7768e   #f7768e    #00000000
 titlebar_padding 10 6
 
-# Blur + shadow on the Waybar layer
-layer_effects "waybar" blur enable; shadows enable
+# Blur on the Waybar layer
+layer_effects "waybar" blur enable;
 
 # Frosted glass behind the rofi launcher
 layer_effects "rofi" {

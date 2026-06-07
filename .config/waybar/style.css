@@ -46,27 +46,32 @@
     padding: 0;
 }
 
-/* The whole bar */
+/* The whole bar — transparent so SwayFX compositor blur shows through */
 #waybar {
-    background: #323232;
-    color: white;
+    background: rgba(10, 12, 22, 0.22);
+    color: rgba(210, 218, 240, 0.95);
     font-family: Cantarell, Noto Sans, sans-serif;
     font-size: 13px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.09);
 }
 
-/* Each module */
+/* Module pill base */
 #battery,
 #clock,
 #cpu,
 #custom-keyboard-layout,
+#custom-mako_dnd,
 #memory,
 #mode,
 #network,
 #pulseaudio,
 #temperature,
 #tray {
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 12px;
+    padding-right: 12px;
+    margin: 4px 2px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.055);
 }
 
 
@@ -81,11 +86,11 @@
 }
 
 #battery.warning {
-    color: orange;
+    color: #e5a550;
 }
 
 #battery.critical {
-    color: red;
+    color: #f07070;
 }
 
 #battery.warning.discharging {
@@ -100,18 +105,15 @@
 
 #clock {
     font-weight: bold;
-}
-
-#cpu {
-    /* No styles */
+    color: rgba(230, 235, 255, 0.95);
 }
 
 #cpu.warning {
-    color: orange;
+    color: #e5a550;
 }
 
 #cpu.critical {
-    color: red;
+    color: #f07070;
 }
 
 #memory {
@@ -121,74 +123,59 @@
 }
 
 #memory.warning {
-    color: orange;
+    color: #e5a550;
 }
 
 #memory.critical {
-    color: red;
+    color: #f07070;
     animation-name: blink-critical;
     animation-duration: 2s;
 }
 
 #mode {
-    background: #64727D;
-    border-top: 2px solid white;
-    /* To compensate for the top border and still have vertical centering */
+    background: rgba(74, 114, 192, 0.30);
+    border-top: 1px solid rgba(74, 114, 192, 0.55);
     padding-bottom: 2px;
 }
 
-#network {
-    /* No styles */
-}
-
 #network.disconnected {
-    color: orange;
-}
-
-#pulseaudio {
-    /* No styles */
-}
-
-#pulseaudio.muted {
-    /* No styles */
+    color: #e5a550;
 }
 
 #custom-spotify {
     color: rgb(102, 220, 105);
 }
 
-#temperature {
-    /* No styles */
-}
-
 #temperature.critical {
-    color: red;
-}
-
-#tray {
-    /* No styles */
+    color: #f07070;
 }
 
 #window {
     font-weight: bold;
+    color: rgba(240, 243, 255, 0.90);
 }
 
 #workspaces button {
-    border-top: 2px solid transparent;
-    /* To compensate for the top border and still have vertical centering */
-    padding-bottom: 2px;
-    padding-left: 10px;
-    padding-right: 10px;
-    color: #888888;
+    border-top: none;
+    padding: 2px 12px;
+    margin: 4px 2px;
+    border-radius: 7px;
+    color: rgba(155, 165, 200, 0.80);
+    background: transparent;
+    transition: all 150ms ease;
 }
 
 #workspaces button.focused {
-    border-color: #4c7899;
-    color: white;
-    background-color: #285577;
+    background: rgba(255, 255, 255, 0.14);
+    color: rgba(240, 243, 255, 0.98);
+}
+
+#workspaces button:hover {
+    background: rgba(255, 255, 255, 0.09);
+    color: rgba(220, 228, 255, 0.95);
 }
 
 #workspaces button.urgent {
-    border-color: #c9545d;
-    color: #c9545d;
+    background: rgba(247, 118, 142, 0.20);
+    color: #f7768e;
 }
