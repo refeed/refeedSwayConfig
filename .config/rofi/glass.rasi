@@ -4,13 +4,13 @@
  */
 
 * {
-    accent:        #909090;     /* neutral gray — no blue                   */
+    accent:        #d0d0d0;     /* light gray for contrast on glass         */
     accent-text:   #ffffff;
-    glass:         #363636ee;   /* medium gray base                         */
-    glass-soft:    #42424266;   /* inputbar tint                            */
+    glass:         #2a2a2a55;   /* very transparent — blur shows through    */
+    glass-soft:    #ffffff0f;   /* subtle inputbar tint                     */
     fg:            #f0f0f0;     /* main text                                */
-    fg-dim:        #888888;
-    sel:           #505050bb;   /* selection bg                             */
+    fg-dim:        #aaaaaa;
+    sel:           #ffffff1a;   /* frosted selection                        */
     urgent:        #cc4444;
     transparent:   #00000000;
 
@@ -23,7 +23,7 @@ window {
     transparency:       "real";
     background-color:    @glass;
     border:              1px;
-    border-color:        #909090bb;
+    border-color:        #ffffff22;
     border-radius:       14px;
     width:               640px;
     padding:             18px;
@@ -88,7 +88,7 @@ element selected {
     background-color:    @sel;
     text-color:          @accent-text;
     border:              1px;
-    border-color:        #909090bb;
+    border-color:        #ffffff22;
 }
 element selected active { text-color: @accent-text; }
 
