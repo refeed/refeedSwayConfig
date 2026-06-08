@@ -14,7 +14,7 @@
     urgent:        #cc4444;
     transparent:   #00000000;
 
-    font:               "JetBrainsMono Nerd Font 12";
+    font:               "SF Pro Text 13";
     background-color:   transparent;
     text-color:         @fg;
 }

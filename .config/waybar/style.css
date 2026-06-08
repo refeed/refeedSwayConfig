@@ -50,7 +50,7 @@
 #waybar {
     background: #363636;
     color: #f0f0f0;
-    font-family: Cantarell, Noto Sans, sans-serif;
+    font-family: "SF Pro Text", "SF Pro Display", sans-serif;
     font-size: 13px;
     border-bottom: 1px solid #4a4a4a;
 }

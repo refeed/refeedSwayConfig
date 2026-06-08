@@ -1,6 +1,7 @@
 #font pango:Noto Sans 11
-font pango:Cantarell 14px
+#font pango:Cantarell 14px
 #font pango:KanitMedium 9
+font pango:SF Pro Text 13px
 
 
 # workspaces
