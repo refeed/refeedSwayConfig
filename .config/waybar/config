@@ -26,6 +26,7 @@
         "sway/window"
     ],
     "modules-right": [
+	"custom/toggl",
 	"tray",
 	"custom/mako_dnd",
         "network",
@@ -101,6 +102,14 @@
     "exec": "~/.config/waybar/scripts/mako_dnd_status.sh",
     "interval": 60,
     "on-click": "makoctl mode -t dnd"
+},
+
+"custom/toggl": {
+    "format": "{}",
+    "return-type": "json",
+    "exec": "~/.config/waybar/modules/toggl.sh",
+    "interval": 2,
+    "on-click": "swaymsg '[title=\"Toggl Track\"] focus'"
 },
 
 

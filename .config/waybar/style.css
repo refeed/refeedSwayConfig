@@ -61,6 +61,7 @@
 #cpu,
 #custom-keyboard-layout,
 #custom-mako_dnd,
+#custom-toggl,
 #memory,
 #mode,
 #network,
@@ -144,6 +145,10 @@
 
 #custom-spotify {
     color: rgb(102, 220, 105);
+}
+
+#custom-toggl {
+    color: #e57cd8;
 }
 
 #temperature.critical {
