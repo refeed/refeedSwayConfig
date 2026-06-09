@@ -73,7 +73,7 @@
 
     "clock#date": {
       "interval": 10,
-      "format": "    {:%A, %e %b %Y}", // Icon: calendar-alt
+      "format": "{:%A, %e %b %Y}", // Icon: calendar-alt
       "tooltip-format": "{:%e %B %Y}"
     },
 
@@ -115,7 +115,7 @@
 
     "memory": {
         "interval": 5,
-        "format": "MEM  {}%", // Icon: memory
+        "format": "󰘚  {}%", // Icon: nf-md-chip
         "states": {
             "warning": 70,
             "critical": 90
@@ -124,11 +124,14 @@
 
     "network": {
         "interval": 5,
-        "format-wifi": "  {essid} ({signalStrength}%)", // Icon: wifi
+        "format-wifi": "{icon}  {essid}",
+        // Icons scale with signalStrength: weak -> full
+        "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
         // "format-ethernet": "E {ifname}: {ipaddr}/{cidr}", // Icon: ethernet
         "format-ethernet": "Ethernet", // Icon: ethernet
         "format-disconnected": "⚠  Disconnected",
-        "tooltip-format": "{ifname}: {ipaddr}"
+        "tooltip-format": "{ifname}: {ipaddr}",
+        "tooltip-format-wifi": "{essid} ({signalStrength}%)\n{ifname}: {ipaddr}"
     },
 
     "sway/mode": {
