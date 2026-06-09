@@ -91,6 +91,10 @@ exec --no-startup-id gnome-keyring-daemon --start --components=pkcs11,secrets,ss
 exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XAUTHORITY
 exec hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XAUTHORITY XDG_CURRENT_DESKTOP=sway
 exec slack
+# Open the Toggl Track timer in its own Firefox window on startup (routed to ws10 below)
+exec firefox --new-window "https://track.toggl.com/timer"
+# Open Google Calendar in its own Firefox window on startup (routed to ws10 below)
+exec firefox --new-window "https://calendar.google.com/calendar/u/1/r/day"
 exec swayidle -w \
   timeout 300 'swaylock -f -c 000000' \
   timeout 400 'swaymsg "output * dpms off"' \
@@ -107,6 +111,11 @@ assign [app_id="^kitty$"] $ws3
 assign [app_id="^Slack$"] $ws4
 assign [class="^Google-chrome$"] $ws4
 assign [class="^Spotify$"] $wsF1
+
+# Route the Toggl Track window to ws10 (overrides the generic firefox->ws1 assign
+# once the page title resolves to "Toggl Track")
+for_window [app_id="^org.mozilla.firefox$" title="Toggl Track"] move to workspace $ws0
+for_window [app_id="^org.mozilla.firefox$" title="Calendar"] move to workspace $ws0
 
 for_window [title=".*"] urgent enable
 
