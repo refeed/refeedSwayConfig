@@ -115,11 +115,14 @@
 
     "memory": {
         "interval": 5,
-        "format": "󰘚  {}%", // Icon: nf-md-chip
+        "format": "󰘚 {icon}",  // chip + pie (fills with usage)
+        "format-icons": ["󰝦", "󰪞", "󰪟", "󰪠", "󰪡", "󰪢", "󰪣", "󰪤", "󰪥"],
         "states": {
             "warning": 70,
             "critical": 90
-        }
+        },
+        "tooltip": true,
+        "tooltip-format": "RAM {percentage}%"
     },
 
     "network": {
@@ -157,18 +160,13 @@
 
     "pulseaudio": {
         //"scroll-step": 1,
-        "format": "{icon}  {volume}%",
-        "format-bluetooth": "{icon}  {volume}%",
-        "format-muted": "",
+        "format": "󰕾 {icon}",          // speaker + volume pie
+        "format-bluetooth": "󰕾 {icon}",
+        "format-muted": "󰝟",
         "format-icons": {
-            "headphones": "",
-            "handsfree": "HANDSFREE",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", ""]
+            "default": ["󰝦", "󰪞", "󰪟", "󰪠", "󰪡", "󰪢", "󰪣", "󰪤", "󰪥"]
         },
+        "tooltip-format": "{desc} — {volume}%",
         "on-click": "pavucontrol"
     },
 
