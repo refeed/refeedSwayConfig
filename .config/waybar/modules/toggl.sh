@@ -29,13 +29,18 @@ case "$entry" in
   *)            text="$entry" ;;
 esac
 
-# Strip the seconds from the leading time token:
-#   "08:39 min - ..." -> "08 min - ...";  "1:23:45 - ..." -> "1:23 - ..."
-time=${text%% *}        # first token, e.g. "08:39" or "1:23:45"
+# Normalize the leading time token:
+#   - drop the seconds:    "08:39 min" -> "08 min";  "1:23:45" -> "1:23"
+#   - drop a leading zero:  "08 min" -> "8 min";  "01:03" -> "1:03";  "05 sec" -> "5 sec"
+time=${text%% *}        # first token, e.g. "08:39", "1:23:45" or "05"
 rest=${text#"$time"}    # remainder, e.g. " min - Infra2Code Dev Sync"
 case "$time" in
-  *:*) text="${time%:*}$rest" ;;
+  *:*) time=${time%:*} ;;     # MM:SS -> MM,  H:MM:SS -> H:MM
 esac
+case "$time" in
+  0[0-9]*) time=${time#0} ;;  # strip a single leading zero
+esac
+text="$time$rest"
 
 # Emit JSON via jq so the text is escaped correctly.
 jq -cn --arg text "$icon  $text" --arg full "$entry" \
