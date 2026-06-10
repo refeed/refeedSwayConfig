@@ -14,7 +14,7 @@ set $ws6   6:6
 set $ws7   7:7
 set $ws8   8:8
 set $ws9   9:9
-set $ws0   10:10
+set $ws0   10:
 set $wsF1  11:📝
 set $wsF2  12:AI
 set $wsF3  13:13
@@ -47,8 +47,8 @@ output DP-2 {
     res 1920x1080@99.930Hz
 }
 output eDP-1 {
-    # scale 1.25
-    scale 1.5
+    scale 1.25
+    #scale 1.5
     pos 1920 0
     res 1920x1200
 }
@@ -91,10 +91,10 @@ exec --no-startup-id gnome-keyring-daemon --start --components=pkcs11,secrets,ss
 exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XAUTHORITY
 exec hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XAUTHORITY XDG_CURRENT_DESKTOP=sway
 exec slack
-# Open the Toggl Track timer in its own Firefox window on startup (routed to ws10 below)
-exec firefox --new-window "https://track.toggl.com/timer"
 # Open Google Calendar in its own Firefox window on startup (routed to ws10 below)
 exec firefox --new-window "https://calendar.google.com/calendar/u/1/r/day"
+# Open the Toggl Track timer in its own Firefox window on startup (routed to ws10 below)
+exec firefox --new-window "https://track.toggl.com/timer"
 exec swayidle -w \
   timeout 300 'swaylock -f -c 000000' \
   timeout 400 'swaymsg "output * dpms off"' \
@@ -108,14 +108,14 @@ assign [app_id="^org.mozilla.firefox$"] $ws1
 assign [app_id="^code$"] $ws2
 assign [app_id="^dev.zed.Zed$"] $ws2
 assign [app_id="^kitty$"] $ws3
-assign [app_id="^Slack$"] $ws4
+assign [app_id="^slack$"] $ws4
 assign [class="^Google-chrome$"] $ws4
 assign [class="^Spotify$"] $wsF1
 
 # Route the Toggl Track window to ws10 (overrides the generic firefox->ws1 assign
 # once the page title resolves to "Toggl Track")
-for_window [app_id="^org.mozilla.firefox$" title="Toggl Track"] move to workspace $ws0
-for_window [app_id="^org.mozilla.firefox$" title="Calendar"] move to workspace $ws0
+for_window [app_id="^org.mozilla.firefox$" title="Calendar"] move to workspace $ws0, layout tabbed
+for_window [app_id="^org.mozilla.firefox$" title="Toggl Track"] move to workspace $ws0, layout tabbed
 
 for_window [title=".*"] urgent enable
 
