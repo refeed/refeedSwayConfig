@@ -62,19 +62,22 @@
             "", // Icon: battery-quarter
             ""  // Icon: battery-empty
         ],
-        "tooltip": true
+        "tooltip": true,
+        "on-click": "XDG_CURRENT_DESKTOP=GNOME gnome-control-center power"
     },
 
     "clock#time": {
         "interval": 1,
         "format": "{:%H:%M}",
-        "tooltip": false
+        "tooltip": false,
+        "on-click": "XDG_CURRENT_DESKTOP=GNOME gnome-control-center datetime"
     },
 
     "clock#date": {
       "interval": 10,
       "format": "{:%A, %e %b %Y}", // Icon: calendar-alt
-      "tooltip-format": "{:%e %B %Y}"
+      "tooltip-format": "{:%e %B %Y}",
+      "on-click": "XDG_CURRENT_DESKTOP=GNOME gnome-control-center datetime"
     },
 
     "cpu": {
@@ -134,7 +137,8 @@
         "format-ethernet": "Ethernet", // Icon: ethernet
         "format-disconnected": "⚠  Disconnected",
         "tooltip-format": "{ifname}: {ipaddr}",
-        "tooltip-format-wifi": "{essid} ({signalStrength}%)\n{ifname}: {ipaddr}"
+        "tooltip-format-wifi": "{essid} ({signalStrength}%)\n{ifname}: {ipaddr}",
+        "on-click": "XDG_CURRENT_DESKTOP=GNOME gnome-control-center wifi"
     },
 
     "sway/mode": {
@@ -167,7 +171,7 @@
             "default": ["󰝦", "󰪞", "󰪟", "󰪠", "󰪡", "󰪢", "󰪣", "󰪤", "󰪥"]
         },
         "tooltip-format": "{desc} — {volume}%",
-        "on-click": "pavucontrol"
+        "on-click": "XDG_CURRENT_DESKTOP=GNOME gnome-control-center sound"
     },
 
 //    "temperature": {
