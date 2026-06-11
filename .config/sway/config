@@ -42,17 +42,21 @@ output HDMI-A-1 {
     pos 0 0
     res 1920x1080@100Hz
 }
+output DP-1 {
+    pos 0 0
+    res 1920x1080@60Hz
+}
 output DP-2 {
     pos 0 0
     res 1920x1080@99.930Hz
 }
 output eDP-1 {
     scale 1.25
-    #scale 1.5
+    # scale 1.5
     pos 1920 0
     res 1920x1200
 }
-workspace $ws1 output HDMI-A-1
+workspace $ws1 output DP-1 HDMI-A-1
 workspace $ws0 output eDP-1
 ## END OUTPUTS
 
@@ -372,6 +376,7 @@ bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
 #        inactive_workspace #32323200 #32323200 #5c5c5c
 #    }
 #}
+exec_always pkill -f "auto-scale.sh$" 2>/dev/null; ~/.config/sway/scripts/auto-scale.sh &
 exec_always ~/.config/waybar/waybar.sh
 
 include @sysconfdir@/sway/config.d/*
