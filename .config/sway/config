@@ -68,8 +68,8 @@ workspace $ws0 output eDP-1
 
 ### Variables
 #
-# Alt key. Use Mod4 for Logo/Super.
-set $mod Mod1
+# Logo key. Use Mod1 for Alt.
+set $mod Mod4
 # Home row direction keys, like vim
 set $left h
 set $down j
