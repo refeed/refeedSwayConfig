@@ -68,8 +68,8 @@ workspace $ws0 output eDP-1
 
 ### Variables
 #
-# Logo key. Use Mod1 for Alt.
-set $mod Mod4
+# Alt key. Use Mod4 for Logo/Super.
+set $mod Mod1
 # Home row direction keys, like vim
 set $left h
 set $down j
@@ -81,7 +81,7 @@ set $term kitty
 set $menu rofi -show drun -run-command 'swaymsg exec -- {cmd}'
 set $screenshot grim ~/Images/screenshots/scrn-$(date +"%Y-%m-%d-%H-%M-%S").png
 set $screenclip slurp | grim -g - ~/Images/screenshots/scrn-$(date +"%Y-%m-%d-%H-%M-%S").png
-set $lock swaylock
+set $lock hyprlock
 set $power ~/.config/rofi/modi/power
 # Define screenshot save path
 set $screenshot_path ~/Pictures/Screenshots
@@ -99,11 +99,17 @@ exec slack
 exec firefox --new-window "https://calendar.google.com/calendar/u/1/r/day"
 # Open the Toggl Track timer in its own Firefox window on startup (routed to ws10 below)
 exec firefox --new-window "https://track.toggl.com/timer"
+# hyprlock has no --daemonize, so before-sleep backgrounds it and waits a beat:
+# swayidle holds the sleep inhibitor until the command returns, and a foreground
+# hyprlock would block suspend until you unlocked.
 exec swayidle -w \
-  timeout 300 'swaylock -f -c 000000' \
+  timeout 300 'pgrep -x hyprlock >/dev/null || hyprlock' \
   timeout 400 'swaymsg "output * dpms off"' \
   resume 'swaymsg "output * dpms on"' \
-  before-sleep 'swaylock -f -c 000000'
+  before-sleep 'pgrep -x hyprlock >/dev/null || hyprlock --immediate-render --no-fade-in & sleep 1'
+
+# Inhibit idle (no lock/blank) whenever audio is playing — keeps screen awake during media
+exec ~/.local/bin/sway-audio-idle-inhibit
 
 
 

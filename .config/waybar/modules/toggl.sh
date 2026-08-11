@@ -40,7 +40,14 @@ esac
 case "$time" in
   0[0-9]*) time=${time#0} ;;  # strip a single leading zero
 esac
+# If the timer is still in seconds (e.g. "5 sec"), show "0 min" instead.
+case "$rest" in
+  " sec"*) time=0; rest=" min${rest#" sec"}" ;;
+esac
 text="$time$rest"
+
+# Limit the displayed text to 45 characters (append an ellipsis when truncated).
+text=$(printf '%s' "$text" | awk '{ if (length($0) > 45) print substr($0, 1, 44) "…"; else print $0 }')
 
 # Emit JSON via jq so the text is escaped correctly.
 jq -cn --arg text "$icon  $text" --arg full "$entry" \

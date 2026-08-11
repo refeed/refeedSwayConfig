@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ -n "$SWAYSOCK" ]; then
-    LOCKER="swaylock -f -c 000000"
+    LOCKER="hyprlock"
     LOGOUT="swaymsg exit"
 else
     LOCKER="i3lock -c 000000"

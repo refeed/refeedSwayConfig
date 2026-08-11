@@ -112,6 +112,7 @@
     "return-type": "json",
     "exec": "~/.config/waybar/modules/toggl.sh",
     "interval": 2,
+    "escape": true,
     "on-click": "swaymsg '[title=\"Toggl Track\"] focus'"
 },
 
@@ -125,7 +126,8 @@
             "critical": 90
         },
         "tooltip": true,
-        "tooltip-format": "RAM {percentage}%"
+        "tooltip-format": "RAM {percentage}%",
+        "on-click": "gnome-system-monitor"
     },
 
     "network": {
